@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">Tugas Akhir</string>
+
+    <!-- Login -->
+    <string name="login_title">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login_button">Masuk</string>
+    <string name="login_failed">Username atau password salah</string>
+
+    <!-- Role -->
+    <string name="role_guru">Guru</string>
+    <string name="role_siswa">Siswa</string>
+
+    <!-- Home -->
+    <string name="home_siswa">Beranda Siswa</string>
+    <string name="home_guru">Beranda Guru</string>
+
+    <!-- Menu -->
+    <string name="menu_jadwal">Jadwal Pelajaran</string>
+    <string name="menu_tugas">Tugas</string>
+    <string name="menu_nilai">Nilai</string>
+    <string name="menu_logout">Keluar</string>
+
+    <!-- Jadwal -->
+    <string name="jadwal_pelajaran">Jadwal Pelajaran</string>
+    <string name="hari">Hari</string>
+    <string name="jam_mulai">Jam Mulai</string>
+    <string name="jam_selesai">Jam Selesai</string>
+    <string name="mata_pelajaran">Mata Pelajaran</string>
+    <string name="detail_jadwal">Detail Jadwal</string>
+    <string name="edit_jadwal">Edit Jadwal</string>
+    <string name="tambah_jadwal">Tambah Jadwal</string>
+    <string name="jadwal_kosong">Belum ada jadwal tersedia</string>
+    <string name="jam">Jam</string>
+
+    <!-- Tugas -->
+    <string name="tugas">Tugas</string>
+    <string name="tambah_tugas">Tambah Tugas</string>
+    <string name="detail_tugas">Detail Tugas</string>
+    <string name="edit_tugas">Edit Tugas</string>
+    <string name="nama_tugas">Nama Tugas</string>
+    <string name="deskripsi_tugas">Deskripsi Tugas</string>
+    <string name="tanggal_tugas">Tanggal Tugas</string>
+    <string name="submit_tugas">Submit Tugas</string>
+    <string name="jawaban_tugas">Jawaban Tugas</string>
+
+    <!-- Button -->
+    <string name="btn_simpan">Simpan</string>
+    <string name="btn_update">Update</string>
+    <string name="btn_hapus">Hapus</string>
+    <string name="btn_kembali">Kembali</string>
+    <string name="btn_submit">Submit</string>
+    <string name="logout">Logout</string>
+
+    <!-- Notification -->
+    <string name="notification_channel_name">Notifikasi Jadwal dan Tugas</string>
+    <string name="notification_channel_desc">Pengingat jadwal masuk dan deadline tugas</string>
+    <string name="notif_jadwal_title">Pengingat Jadwal</string>
+    <string name="notif_jadwal_message">Pelajaran akan dimulai 10 menit lagi</string>
+    <string name="notif_tugas_title">Pengingat Tugas</string>
+    <string name="notif_tugas_message">Jangan lupa mengerjakan tugas</string>
+
+</resources>
