@@ -1,10 +1,8 @@
 package com.example.tugasakhir.uicontroller.route
 
-import com.example.tugasakhir.R
+object DestinasiDetailTugas {
+    const val route = "detail_tugas"
+    const val tugasIdArg = "tugasId"
 
-object DestinasiDetailTugas : DestinasiNavigasi {
-    override val route = "detail_tugas/{tugasId}"
-    override val titleRes = R.string.detail_tugas
-
-    fun createRoute(tugasId: Int) = "detail_tugas/$tugasId"
+    val routeWithArg = "$route/{$tugasIdArg}"
 }

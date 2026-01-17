@@ -1,11 +1,13 @@
 package com.example.tugasakhir.viewmodel.provider
 
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.tugasakhir.TugasAkhirApplication
 import com.example.tugasakhir.viewmodel.EditJadwalViewModel
+import com.example.tugasakhir.viewmodel.EditTugasViewModel
 import com.example.tugasakhir.viewmodel.HomeViewModel
 import com.example.tugasakhir.viewmodel.LoginViewModel
 import com.example.tugasakhir.viewmodel.JadwalViewModel
@@ -41,6 +43,12 @@ object PenyediaViewModel {
         }
         initializer {
             EditJadwalViewModel(
+                repository = tugasApp().container.userRepositori
+            )
+        }
+        // Tambahkan di dalam object PenyediaViewModel
+        initializer {
+            EditTugasViewModel(
                 repository = tugasApp().container.userRepositori
             )
         }

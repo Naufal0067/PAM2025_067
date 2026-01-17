@@ -23,9 +23,7 @@ fun PetaNavigasi() {
     val homeViewModel: HomeViewModel =
         viewModel(factory = PenyediaViewModel.Factory)
 
-
-
-    // ambil role dari session
+    // Ambil role dari session setiap kali navigasi diinisialisasi
     LaunchedEffect(Unit) {
         homeViewModel.setRole(sessionManager.getRole() ?: "siswa")
     }
@@ -42,19 +40,21 @@ fun PetaNavigasi() {
             LoginView(navController = navController)
         }
 
-        // ===== HOME =====
+        // ===== HOME GURU =====
+        // Dipisahkan agar tidak tertukar saat proses login berlangsung
         composable(DestinasiHomeGuru.route) {
-            if (isGuru) {
-                HomeGuruView(
-                    navController = navController,
-
-                )
-            } else {
-                HomeSiswaView(
-                    navController = navController,
-
-                )
+            LaunchedEffect(Unit) {
+                homeViewModel.setRole("guru")
             }
+            HomeGuruView(navController = navController)
+        }
+
+        // ===== HOME SISWA =====
+        composable(DestinasiHomeSiswa.route) {
+            LaunchedEffect(Unit) {
+                homeViewModel.setRole("siswa")
+            }
+            HomeSiswaView(navController = navController)
         }
 
         // ===== JADWAL =====
@@ -79,7 +79,7 @@ fun PetaNavigasi() {
                 navArgument("jadwalId") { type = NavType.IntType }
             )
         ) { backStackEntry ->
-            val id = backStackEntry.arguments!!.getInt("jadwalId")
+            val id = backStackEntry.arguments?.getInt("jadwalId") ?: 0
 
             DetailJadwalView(
                 idJadwal = id,
@@ -96,6 +96,7 @@ fun PetaNavigasi() {
                 }
             )
         ) { backStackEntry ->
+            // PERBAIKAN: Gunakan variabel jadwalId yang sudah didefinisikan
             val jadwalId = backStackEntry
                 .arguments
                 ?.getInt(DestinasiEditJadwal.jadwalIdArg)
@@ -103,11 +104,9 @@ fun PetaNavigasi() {
 
             EditJadwalView(
                 navController = navController,
-                idJadwal = id
+                idJadwal = jadwalId
             )
         }
-
-
 
         // ===== TUGAS =====
         composable(DestinasiTugas.route) {
@@ -125,15 +124,93 @@ fun PetaNavigasi() {
             }
         }
 
-        composable(DestinasiDetailTugas.route) {
+        // ===== DETAIL TUGAS =====
+        composable(
+            route = DestinasiDetailTugas.routeWithArg,
+            arguments = listOf(
+                navArgument(DestinasiDetailTugas.tugasIdArg) {
+                    type = NavType.IntType
+                }
+            )
+        ) { backStackEntry ->
+            val idTugas = backStackEntry
+                .arguments
+                ?.getInt(DestinasiDetailTugas.tugasIdArg)
+                ?: 0
+
             DetailTugasView(
+                idTugas = idTugas,
                 navController = navController,
                 isGuru = isGuru
             )
         }
 
-        composable(DestinasiSubmitTugas.route) {
-            SubmitTugasView(navController)
+// ===== SUBMIT TUGAS =====
+        composable(
+            route = DestinasiSubmitTugas.routeWithArg,
+            arguments = listOf(
+                navArgument(DestinasiSubmitTugas.tugasIdArg) {
+                    type = NavType.IntType
+                }
+            )
+        ) { backStackEntry ->
+            val idTugas = backStackEntry
+                .arguments
+                ?.getInt(DestinasiSubmitTugas.tugasIdArg)
+                ?: 0
+
+            SubmitTugasView(
+                idTugas = idTugas,
+                navController = navController
+            )
+        }
+        composable(
+            route = DestinasiEditTugas.routeWithArg,
+            arguments = listOf(
+                navArgument(DestinasiEditTugas.tugasIdArg) {
+                    type = NavType.IntType
+                }
+            )
+        ) { backStackEntry ->
+            val idTugas = backStackEntry
+                .arguments
+                ?.getInt(DestinasiEditTugas.tugasIdArg)
+                ?: 0
+
+            if (isGuru) {
+                EditTugasView(
+                    idTugas = idTugas,
+                    navController = navController
+                )
+            } else {
+                // siswa tidak boleh edit
+                navController.popBackStack()
+            }
+        }
+        // ===== DAFTAR SUBMIT TUGAS (GURU) =====
+        composable(
+            route = DestinasiDaftarSubmitTugas.routeWithArg,
+            arguments = listOf(
+                navArgument(DestinasiDaftarSubmitTugas.tugasIdArg) {
+                    type = NavType.IntType
+                }
+            )
+        ) { backStackEntry ->
+            val idTugas = backStackEntry
+                .arguments
+                ?.getInt(DestinasiDaftarSubmitTugas.tugasIdArg)
+                ?: 0
+
+            if (isGuru) {
+                DaftarSubmitTugasView(
+                    tugasId = idTugas,
+                    navController = navController,
+                    viewModel = viewModel(factory = PenyediaViewModel.Factory)
+                )
+            } else {
+                // siswa tidak boleh lihat daftar submit
+                navController.popBackStack()
+            }
         }
     }
 }

@@ -23,7 +23,8 @@ class DefaultAppContainer(private val context: Context) : AppContainer {
         UserRepositori(
             userDao = database.userDao(),
             jadwalDao = database.jadwalDao(),
-            tugasDao = database.tugasDao()
+            tugasDao = database.tugasDao(),
+            submitTugasDao = database.submitTugasDao()
         )
     }
 }

@@ -12,7 +12,8 @@ import androidx.room.RoomDatabase
     entities = [
         UserEntity::class,
         JadwalEntity::class,
-        TugasEntity::class
+        TugasEntity::class,
+        SubmitTugasEntity::class
     ],
     version = 2,
     exportSchema = false
@@ -23,6 +24,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun jadwalDao(): JadwalDao
     abstract fun tugasDao(): TugasDao
+    abstract fun submitTugasDao(): SubmitTugasDao
+
 
     companion object {
         @Volatile

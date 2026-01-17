@@ -13,26 +13,27 @@ object UserSeeder {
         val dao = AppDatabase.getDatabase(context).userDao()
 
         CoroutineScope(Dispatchers.IO).launch {
-            if (dao.countUser() == 0) {
 
-                // Guru
-                dao.insert(
-                    UserEntity(
-                        username = "guru",
-                        password = "123",
-                        role = "guru"
-                    )
-                )
+            // HAPUS SEMUA USER LAMA
+            dao.deleteAll()
 
-                // Siswa
-                dao.insert(
-                    UserEntity(
-                        username = "siswa",
-                        password = "123",
-                        role = "siswa"
-                    )
+            // INSERT ULANG DENGAN ROLE BENAR
+            dao.insert(
+                UserEntity(
+                    username = "guru",
+                    password = "123",
+                    role = "guru"
                 )
-            }
+            )
+
+            dao.insert(
+                UserEntity(
+                    username = "siswa",
+                    password = "123",
+                    role = "siswa"
+                )
+            )
         }
     }
 }
+

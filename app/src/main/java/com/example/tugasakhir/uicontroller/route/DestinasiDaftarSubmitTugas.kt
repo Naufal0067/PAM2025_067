@@ -1,7 +1,8 @@
 package com.example.tugasakhir.uicontroller.route
 
-object DestinasiEditTugas {
-    const val route = "edit_tugas"
+
+object DestinasiDaftarSubmitTugas {
+    const val route = "daftar_submit_tugas"
     const val tugasIdArg = "tugasId"
 
     val routeWithArg = "$route/{$tugasIdArg}"

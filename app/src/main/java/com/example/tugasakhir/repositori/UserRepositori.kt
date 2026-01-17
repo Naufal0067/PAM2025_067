@@ -6,7 +6,9 @@ import kotlinx.coroutines.flow.Flow
 class UserRepositori(
     private val userDao: UserDao,
     private val jadwalDao: JadwalDao,
-    private val tugasDao: TugasDao
+    private val tugasDao: TugasDao,
+    private val submitTugasDao: SubmitTugasDao
+
 ) {
 
     /* ================= USER ================= */
@@ -58,4 +60,10 @@ class UserRepositori(
     suspend fun deleteTugas(tugas: TugasEntity) {
         tugasDao.deleteTugas(tugas)
     }
+
+    fun getSubmitTugasByTugasId(tugasId: Int) =
+            submitTugasDao.getByTugasId(tugasId)
+
+    suspend fun insertSubmitTugas(submit: SubmitTugasEntity) =
+            submitTugasDao.insert(submit)
 }

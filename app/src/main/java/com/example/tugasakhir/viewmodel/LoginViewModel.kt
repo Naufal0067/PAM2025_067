@@ -9,28 +9,34 @@ import kotlinx.coroutines.withContext
 
 // Perubahan 1: Gunakan ViewModel (bukan AndroidViewModel)
 // agar cocok dengan Factory di PenyediaViewModel
-class LoginViewModel(private val repository: UserRepositori) : ViewModel() {
+class LoginViewModel(
+    private val repository: UserRepositori
+) : ViewModel() {
 
     fun login(
         username: String,
         password: String,
-        onResult: (Boolean, String?) -> Unit
+        onResult: (success: Boolean, role: String?) -> Unit
     ) {
         viewModelScope.launch {
             try {
-                // Perubahan 2: Jalankan di Background Thread (Dispatchers.IO)
-                // Ini mencegah crash "Database access on main thread"
+                // Ambil user dari database di IO thread
                 val user = withContext(Dispatchers.IO) {
-                    repository.login(username, password)
+                    repository.login(
+                        username.trim(),
+                        password.trim()
+                    )
                 }
 
                 if (user != null) {
-                    onResult(true, user.role)
+                    // 🔥 PENTING: pastikan role tidak null & lowercase
+                    onResult(true, user.role.lowercase())
                 } else {
                     onResult(false, null)
                 }
+
             } catch (e: Exception) {
-                // Jika ada error database, aplikasi tidak crash tapi mengembalikan false
+                e.printStackTrace()
                 onResult(false, null)
             }
         }

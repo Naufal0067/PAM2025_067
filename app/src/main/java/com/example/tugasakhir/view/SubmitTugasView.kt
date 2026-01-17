@@ -1,47 +1,55 @@
 package com.example.tugasakhir.view
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TopAppBar
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.tugasakhir.R
+import com.example.tugasakhir.viewmodel.SubmitTugasViewModel
+import com.example.tugasakhir.viewmodel.provider.PenyediaViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SubmitTugasView(navController: NavController) {
+fun SubmitTugasView(
+    idTugas: Int,
+    navController: NavController,
+    viewModel: SubmitTugasViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
     var jawaban by remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.submit_tugas)) }
-            )
+            TopAppBar(title = { Text("Submit Tugas") })
         }
     ) { padding ->
-        Column(modifier = Modifier.padding(padding)) {
-
+        Column(
+            modifier = Modifier.padding(padding).padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
             TextField(
                 value = jawaban,
                 onValueChange = { jawaban = it },
-                label = { Text(stringResource(R.string.deskripsi_tugas)) }
+                label = { Text("Jawaban") },
+                minLines = 4
             )
 
-            Button(onClick = {
-                navController.popBackStack()
-            }) {
-                Text(stringResource(R.string.btn_submit))
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {
+                    viewModel.submitTugas(
+                        tugasId = idTugas,
+                        namaSiswa = "Siswa", // nanti bisa dari Session
+                        jawaban = jawaban
+                    ) {
+                        navController.popBackStack()
+                    }
+                }
+            ) {
+                Text("Kirim")
             }
         }
     }

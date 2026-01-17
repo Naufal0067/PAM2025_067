@@ -20,7 +20,8 @@ interface UserDao {
     @Query("SELECT COUNT(*) FROM user")
     suspend fun countUser(): Int
 
-    @Query("SELECT * FROM user WHERE username = :username LIMIT 1")
-    suspend fun getUserByUsername(username: String): UserEntity?
+    @Query("DELETE FROM user")
+    suspend fun deleteAll()
+
 
 }

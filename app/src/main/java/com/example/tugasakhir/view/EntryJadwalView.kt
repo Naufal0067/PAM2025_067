@@ -1,6 +1,8 @@
 package com.example.tugasakhir.view
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -25,14 +27,24 @@ fun EntryJadwalView(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.tambah_jadwal)) }
+                title = { Text(stringResource(R.string.tambah_jadwal)) },
+                // ✅ Tambahkan navigationIcon untuk tombol Back
+                navigationIcon = {
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Kembali"
+                        )
+                    }
+                }
             )
         }
     ) { padding ->
         Column(
             modifier = Modifier
                 .padding(padding)
-                .padding(16.dp),
+                .padding(16.dp)
+                .fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
 
@@ -54,8 +66,11 @@ fun EntryJadwalView(
                 value = jam,
                 onValueChange = { jam = it },
                 label = { Text(stringResource(R.string.jam)) },
+                placeholder = { Text("Contoh: 07:00 - 09:00") }, // User bisa input rentang manual di sini
                 modifier = Modifier.fillMaxWidth()
             )
+
+            Spacer(modifier = Modifier.weight(1f))
 
             Button(
                 modifier = Modifier.fillMaxWidth(),
