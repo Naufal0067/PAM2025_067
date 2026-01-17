@@ -11,6 +11,8 @@ import com.example.tugasakhir.viewmodel.EditTugasViewModel
 import com.example.tugasakhir.viewmodel.HomeViewModel
 import com.example.tugasakhir.viewmodel.LoginViewModel
 import com.example.tugasakhir.viewmodel.JadwalViewModel
+import com.example.tugasakhir.viewmodel.SubmissionViewModel
+import com.example.tugasakhir.viewmodel.SubmitTugasViewModel
 import com.example.tugasakhir.viewmodel.TugasViewModel
 
 object PenyediaViewModel {
@@ -49,6 +51,17 @@ object PenyediaViewModel {
         // Tambahkan di dalam object PenyediaViewModel
         initializer {
             EditTugasViewModel(
+                repository = tugasApp().container.userRepositori
+            )
+        }
+        initializer {
+            SubmitTugasViewModel(
+                tugasApp().container.userRepositori // Pastikan repository-nya benar
+            )
+        }
+        initializer {
+            SubmissionViewModel(
+                savedStateHandle = this.createSavedStateHandle(),
                 repository = tugasApp().container.userRepositori
             )
         }
