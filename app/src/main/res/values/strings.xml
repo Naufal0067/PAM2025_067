@@ -44,6 +44,9 @@
     <string name="tanggal_tugas">Tanggal Tugas</string>
     <string name="submit_tugas">Submit Tugas</string>
     <string name="jawaban_tugas">Jawaban Tugas</string>
+    <string name="tenggat">Tenggat</string>
+    <string name="deskripsi">Deskripsi</string>
+    <string name="data_tidak_ditemukan">Data Tidak Temukan</string>
 
     <!-- Button -->
     <string name="btn_simpan">Simpan</string>
